@@ -18,12 +18,12 @@ class Navbar extends Component {
                 <Link to='/' className='navbarLink'>Home</Link>
                 {
                     AuthService.isUserAuthenticated() ? (
-                        <div>
-                            <Link to='/products/add' className='navbarLink'>Add</Link>
+                        <span>
+                            <Link to='/bankAccounts/add' className='navbarLink'>Add Bank Account</Link>
                             <Link to='/analytics' className='navbarLink'>Analytics</Link>
                             <span className='navbarLink' >{this.state.username}</span>
                             <Link to='/users/logout' className='navbarLink'>Logout</Link>
-                        </div>
+                        </span>
                     ) : (
                             <span>
                                 <Link to='/users/register' className='navbarLink'>Register</Link>

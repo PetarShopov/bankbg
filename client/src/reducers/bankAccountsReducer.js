@@ -12,7 +12,10 @@ export default (state = initialState, action) => {
     }
 
     function getAllBankAccounts(state, action) {
-        return action.bankAccounts
+        return {
+            ...state,
+            bankAccounts: action.bankAccounts
+        }
     }
 
     switch (action.type) {

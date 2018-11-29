@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as accountActions from '../../actions/accountActions';
+import * as bankAccountsActions from '../../actions/bankAccountsActions';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -27,7 +27,7 @@ class AccountDetails extends React.Component {
 }
 
 AccountDetails.propTypes = {
-    accountActions: PropTypes.object,
+    bankAccountsActions: PropTypes.object,
     selectedAccount: PropTypes.object
 };
 
@@ -39,7 +39,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        accountActions: bindActionCreators(accountActions, dispatch)
+        bankAccountsActions: bindActionCreators(bankAccountsActions, dispatch)
     };
 }
 

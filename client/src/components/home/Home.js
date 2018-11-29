@@ -6,38 +6,24 @@ import React from 'react';
 
 
 class Home extends React.Component {
+    componentDidMount() {
+        this.props.bankAccountsActions.getAllBankAccounts()
+    }
+    
     renderData() {
-        return <div>{this.props.bankAccounts.map(account => <div>{account._id}</div>)}</div>;
-    }
-
-    getAllBankAccounts = (event) => {
-        this.props.bankAccountsActions.getAllBankAccounts();
-    }
-
-    addBankAccount = (event) => {
-        let bankAccount = {
-            ownerId: '123',
-            ownerName: 'Petar Shopov',
-            balance: 100,
-            balanceMovements: [100],
-            createdOn: Date.now(),
-            lastChange: Date.now()
-        }
-        this.props.bankAccountsActions.addBankAccount(bankAccount);
+        return <div>{this.props.bankAccounts.map(account => <div key={account._id}>{account._id}</div>)}</div>;
     }
 
     render() {
         return (
             <div className="">
-                {this.props.bankAccounts.length > 0 ?
+                {this.props.bankAccounts && this.props.bankAccounts.length > 0 ?
                     this.renderData()
                     :
                     <div className="">
                         No Data
-            </div>
+                    </div>
                 }
-                <button onClick={this.getAllBankAccounts.bind(this)}>Get Data</button>
-                <button onClick={this.addBankAccount.bind(this)}>Add Data</button>
             </div>
         );
     }
@@ -50,7 +36,7 @@ Home.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        bankAccounts: state.bankAccounts
+        bankAccounts: state.bankAccountsReducer.bankAccounts
     };
 }
 
