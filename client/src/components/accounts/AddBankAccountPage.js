@@ -12,16 +12,12 @@ class AddBankAccountPage extends Component {
 
         this.state = {
             bankAccount: {
-                ownerName: 'Petar Shopov',
+                ownerFirstName: 'Petar',
+                ownerLastName: 'Shopov',
+                ownerPin: '1234',
                 balance: 100
             },
             error: ''
-        }
-    }
-
-    componentWillReceiveProps(nextProps){
-        if (nextProps.bankAccounts) {
-            this.props.history.push('/');
         }
     }
 
@@ -37,7 +33,7 @@ class AddBankAccountPage extends Component {
     render() {
         return (
             <div>
-                <h1>Add Bank Account Account</h1>
+                <h1>Add Bank Account</h1>
                 <AddBankAccountForm
                     bankAccount={this.state.bankAccount}
                     error={this.state.error}

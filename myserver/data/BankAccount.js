@@ -1,10 +1,11 @@
 const mongoose = require('mongoose')
 
 let bankAccountSchema = new mongoose.Schema({
-    ownerId: { type: String, required: true },
-    ownerName: { type: String, required: true },
+    ownerFirstName: { type: String, required: true },
+    ownerLastName: { type: String, required: true },
+    ownerPin: { type: String, required: true },
     balance: { type: Number, required: true },
-    balanceMovements: { type: [Number] },
+    history: { type: [Object] },
     createdOn: { type: Date},
     lastChange: { type: Date, default: Date.now() }
 })

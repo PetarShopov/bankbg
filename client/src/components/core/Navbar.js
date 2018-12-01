@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AuthService from '../../services/authService'
 import { Link } from 'react-router-dom'
+import './Navbar.css';
 // import userStore from '../../stores/UserStore'
 
 class Navbar extends Component {
@@ -15,23 +16,36 @@ class Navbar extends Component {
     render() {
         return (
             <div className='menu'>
-                <Link to='/' className='navbarLink'>Home</Link>
-                {
-                    AuthService.isUserAuthenticated() ? (
-                        <span>
-                            <Link to='/bankAccounts/add' className='navbarLink'>Add Bank Account</Link>
-                            <Link to='/analytics' className='navbarLink'>Analytics</Link>
-                            <span className='navbarLink' >{this.state.username}</span>
-                            <Link to='/users/logout' className='navbarLink'>Logout</Link>
-                        </span>
-                    ) : (
+                <ul>
+                    <li><Link to='/' className='navbarLink'>Home</Link></li>
+                    {
+                        AuthService.isUserAuthenticated() ? (
                             <span>
-                                <Link to='/users/register' className='navbarLink'>Register</Link>
-                                <Link to='/users/login' className='navbarLink'>Login</Link>
-                                <Link to='/accountDetails' className='navbarLink'>Account Details</Link>
+                                <li className="dropdown">
+                                    <Link to='#' className='navbarLink'>Bank Accounts</Link>
+                                    <div className="dropdown-content">
+                                        <Link to='/bankAccounts/add' className='navbarLink'>Add</Link>
+                                        <Link to='/bankAccounts/add' className='navbarLink'>Edit</Link>
+                                        <Link to='/bankAccounts/add' className='navbarLink'>Delete</Link>
+                                    </div>
+                                </li>
+                                <li><Link to='/analytics' className='navbarLink'>Analytics</Link></li>
+                                <li className="dropdown" id="userDetailsButton">
+                                    <Link to='#' className='navbarLink' >{this.state.username}</Link>
+                                    <div className="dropdown-content">
+                                        <Link to='/users/logout' className='navbarLink'>Logout</Link>
+                                    </div>
+                                </li>
                             </span>
-                        )
-                }
+                        ) : (
+                                <span>
+                                    <li><Link to='/users/register' className='navbarLink'>Register</Link></li>
+                                    <li><Link to='/users/login' className='navbarLink'>Login</Link></li>
+                                    <li><Link to='/accountDetails' className='navbarLink'>Account Details</Link></li>
+                                </span>
+                            )
+                    }
+                </ul>
             </div>
         )
     }

@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import bankAccountsService from '../services/bankAccountsService';
+import { history } from '../store/configureStore';
 
 function bankAccountAdded(bankAccount) {
     return { 
@@ -29,6 +30,7 @@ export function addBankAccount(bankAccount) {
         return bankAccountsService.add(bankAccount)
             .then(response => {
                 dispatch(bankAccountAdded(response.bankAccount));
+                history.push('/');
             })
     };
 }

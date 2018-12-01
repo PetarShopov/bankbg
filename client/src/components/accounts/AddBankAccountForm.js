@@ -5,10 +5,24 @@ const AddBankAccountForm = (props) => (
     <form>
         <div>{props.error}</div>
         <Input
-            name='ownerName'
+            name='ownerFirstName'
             type='text'
-            placeholder='Owner Name'
-            value={props.bankAccount.ownerName}
+            placeholder='First Name'
+            value={props.bankAccount.ownerFirstName}
+            onChange={props.onChange}/>
+        <br />
+        <Input
+            name='ownerLastName'
+            type='text'
+            placeholder='Last Name'
+            value={props.bankAccount.ownerLastName}
+            onChange={props.onChange}/>
+        <br />
+        <Input
+            name='ownerPin'
+            type='text'
+            placeholder='PIN'
+            value={props.bankAccount.ownerPin}
             onChange={props.onChange}/>
         <br />
         <Input

@@ -31,10 +31,11 @@ module.exports = (app) => {
 
 		BankAccount
 			.create({
-				ownerId: bankAccountReq.ownerId || 'No Owner Id',
-				ownerName: bankAccountReq.ownerName || 'No Owner Name',
+				ownerFirstName: bankAccountReq.ownerFirstName || 'No First Name',
+				ownerLastName: bankAccountReq.ownerLastName || 'No Last Name',
+				ownerPin: bankAccountReq.ownerPin || 'No PIN',
 				balance: bankAccountReq.balance || 0,
-				balanceMovements: bankAccountReq.balanceMovements || [],
+				history: bankAccountReq.history || [],
 				createdOn: +Date.now(),
 				lastChange: +Date.now()
 			})
