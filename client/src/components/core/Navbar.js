@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import AuthService from '../../services/authService'
 import { Link } from 'react-router-dom'
 import './Navbar.css';
-// import userStore from '../../stores/UserStore'
 
 class Navbar extends Component {
     constructor(props) {
@@ -13,7 +14,17 @@ class Navbar extends Component {
         }
     }
 
+    componentWillRecieveProps(props) {
+        this.setState({
+            username: AuthService.getUser().name
+        })
+        if (props.userReducer) {
+
+        }
+    }
+
     render() {
+        let username = this.state.username || this.props.username;
         return (
             <div className='menu'>
                 <ul>
@@ -31,7 +42,7 @@ class Navbar extends Component {
                                 </li>
                                 <li><Link to='/analytics' className='navbarLink'>Analytics</Link></li>
                                 <li className="dropdown" id="userDetailsButton">
-                                    <Link to='#' className='navbarLink' >{this.state.username}</Link>
+                                    <Link to='#' className='navbarLink' >{username}</Link>
                                     <div className="dropdown-content">
                                         <Link to='/users/logout' className='navbarLink'>Logout</Link>
                                     </div>
@@ -41,7 +52,6 @@ class Navbar extends Component {
                                 <span>
                                     <li><Link to='/users/register' className='navbarLink'>Register</Link></li>
                                     <li><Link to='/users/login' className='navbarLink'>Login</Link></li>
-                                    <li><Link to='/accountDetails' className='navbarLink'>Account Details</Link></li>
                                 </span>
                             )
                     }
@@ -51,4 +61,17 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar
+Navbar.propTypes = {
+    username: PropTypes.string
+};
+
+function mapStateToProps(state) {
+    return {
+        username: state.userReducer.username
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    null
+)(Navbar);

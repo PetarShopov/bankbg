@@ -11,7 +11,7 @@ module.exports = new PassportLocalStrategy({
     let reqUser = req.body
     // Add validations!
     let salt = encryption.generateSalt()
-    let hashedPassword = encryption.generateHashedPassword(salt, reqUser.password)
+    let hashedPassword = encryption.generateHashedPassword(salt, password)
 
     User.findOne({ 'username': username })
         .then(existingUser => {
@@ -23,6 +23,7 @@ module.exports = new PassportLocalStrategy({
                 username: username,
                 firstName: reqUser.firstName,
                 lastName: reqUser.lastName,
+                pin: reqUser.pin,
                 salt: salt,
                 hashedPass: hashedPassword
             })
@@ -32,6 +33,8 @@ module.exports = new PassportLocalStrategy({
                 .catch(err => {
                     if (err.code === 11000) {
                         return done('Username already exists!');
+                    } else {
+                        return done({error: err.message})
                     }
                 })
         })

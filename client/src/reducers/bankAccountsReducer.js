@@ -1,7 +1,6 @@
-import initialState from './initialState';
 import { ADD_BANK_ACCOUNT, ALL_BANK_ACCOUNTS } from '../actions/actionTypes';
 
-export default (state = initialState, action) => {
+export default (state = { bankAccounts: [] }, action) => {
     function addBankAccount(state, action) {
         return {
             ...state,

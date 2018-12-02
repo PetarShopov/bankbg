@@ -6,14 +6,26 @@ import App from './App';
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux';
 import registerServiceWorker from './registerServiceWorker';
-import initialState from './reducers/initialState'
+import '../node_modules/react-redux-toastr/lib/css/react-redux-toastr.min.css'
+import ReduxToastr from 'react-redux-toastr'
 
-const store = configure(initialState);
+const store = configure();
 
 render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
-            <App />
+            <div>
+                <App />
+                <ReduxToastr
+                    timeOut={4000}
+                    newestOnTop={false}
+                    preventDuplicates
+                    position="top-left"
+                    transitionIn="fadeIn"
+                    transitionOut="fadeOut"
+                    progressBar
+                    closeOnToastrClick />
+            </div>
         </ConnectedRouter>
     </Provider>,
     document.getElementById('root')

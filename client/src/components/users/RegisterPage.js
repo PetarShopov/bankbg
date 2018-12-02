@@ -16,16 +16,11 @@ class RegisterPage extends Component {
                 password: '123456',
                 confirmPassword: '123456',
                 firstName: 'Test',
-                lastName: 'Test2'
+                lastName: 'Test2',
+                pin: '1234'
             },
             submitted: false,
             error: ''
-        }
-    }
-
-    componentWillReceiveProps(nextProps){
-        if (nextProps.userRegistered) {
-            this.props.history.push('/');
         }
     }
 
@@ -73,15 +68,8 @@ class RegisterPage extends Component {
 }
 
 RegisterPage.propTypes = {
-    userActions: PropTypes.object,
-    userRegistered: PropTypes.bool
+    userActions: PropTypes.object
 };
-
-function mapStateToProps(state) {
-    return {
-        userRegistered: state.userReducer.userRegistered
-    };
-}
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -90,6 +78,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(RegisterPage);

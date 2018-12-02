@@ -9,7 +9,7 @@ class Home extends React.Component {
     componentDidMount() {
         this.props.bankAccountsActions.getAllBankAccounts()
     }
-    
+
     renderData() {
         return <div>{this.props.bankAccounts.map(account => <div key={account._id}>{account._id}</div>)}</div>;
     }
@@ -30,15 +30,8 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-    bankAccountsActions: PropTypes.object,
-    bankAccounts: PropTypes.array
+    bankAccountsActions: PropTypes.object
 };
-
-function mapStateToProps(state) {
-    return {
-        bankAccounts: state.bankAccountsReducer.bankAccounts
-    };
-}
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -47,6 +40,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(Home);

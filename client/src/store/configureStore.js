@@ -15,11 +15,11 @@ const createStoreWithMiddleware = compose(
 	applyMiddleware(...middleware)(createStore)
 );
 
-export function configure(initialState) {
+export function configure() {
 	// Create the redux store and add middleware to it
 	var configStore = createStoreWithMiddleware(
 		rootReducer,
-		initialState,
+		{},
 	)
 	// Snippet to allow hot reload to work with reducers
 	if (module.hot) {

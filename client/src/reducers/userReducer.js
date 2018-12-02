@@ -1,18 +1,21 @@
-import initialState from './initialState';
 import * as types from '../actions/actionTypes';
 
-export default (state = initialState, action) => {
+export default (state = { username: null }, action) => {
     function register(state, action) {
-        let result = action.response;
-        return Object.assign({}, state, {
-            userRegistered: result.success
-        })
+        return state
     }
 
     function login(state, action) {
         let result = action.response;
         return Object.assign({}, state, {
-            userLoggedIn: result.success
+            message: result.success,
+            username: result.user.name
+        })
+    }
+
+    function logout(state, action) {
+        return Object.assign({}, state, {
+            username: null
         })
     }
 
@@ -21,6 +24,8 @@ export default (state = initialState, action) => {
             return register(state, action);
         case types.LOGIN_USER:
             return login(state, action);
+        case types.LOGOUT_USER:
+            return logout(state, action);
         default:
             return state;
     }

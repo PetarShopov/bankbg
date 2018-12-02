@@ -5,25 +5,11 @@ const RegisterForm = (props) => (
     <form>
         <div>{props.error}</div>
         <Input
-            name='username'
             type='email'
+            name='username'
             placeholder='Email'
             value={props.user.username}
             onChange={props.onChange}/>
-        <br />
-        <Input
-            type='password'
-            name='password'
-            placeholder='Password'
-            value={props.user.password}
-            onChange={props.onChange} />
-        <br />
-        <Input
-            type='password'
-            name='confirmPassword'
-            placeholder='Confirm Password'
-            value={props.user.confirmPassword}
-            onChange={props.onChange} />
         <br />
         <Input
             type='text'
@@ -39,6 +25,28 @@ const RegisterForm = (props) => (
             value={props.user.lastName}
             onChange={props.onChange} />
         <br />
+        <Input
+            type='text'
+            name='pin'
+            placeholder='PIN'
+            value={props.user.pin}
+            onChange={props.onChange} />
+        <br />
+        <Input
+            type='password'
+            name='password'
+            placeholder='Password'
+            value={props.user.password}
+            onChange={props.onChange} />
+        <br />
+        <Input
+            type='password'
+            name='confirmPassword'
+            placeholder='Confirm Password'
+            value={props.user.confirmPassword}
+            onChange={props.onChange} />
+        <br />
+        
         <input type="submit" onClick={props.onSave} />
     </form>
 )

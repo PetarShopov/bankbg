@@ -1,11 +1,13 @@
 import {Component} from 'react'
 import authService from '../../services/authService'
+import * as userActions from '../../actions/UserActions'
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 class LogoutPage extends Component {
     componentWillMount () {
-        authService.deauthenticateUser()
-        authService.removeUser()
-        this.props.history.push('/')
+        this.props.userActions.logout()
     }
 
     render() {
@@ -13,4 +15,17 @@ class LogoutPage extends Component {
     }
 }
 
-export default LogoutPage
+LogoutPage.propTypes = {
+    userActions: PropTypes.object
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        userActions: bindActionCreators(userActions, dispatch)
+    };
+}
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(LogoutPage);
