@@ -1,5 +1,4 @@
 import {Component} from 'react'
-import authService from '../../services/authService'
 import * as userActions from '../../actions/UserActions'
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux'

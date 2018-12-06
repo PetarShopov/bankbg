@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import * as bankAccountsActions from '../../actions/bankAccountsActions';
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import './Home.css';
 
 class Home extends React.Component {
     componentDidMount() {
@@ -11,7 +11,28 @@ class Home extends React.Component {
     }
 
     renderData() {
-        return <div>{this.props.bankAccounts.map(account => <div key={account._id}>{account._id}</div>)}</div>;
+        return (
+            <table>
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Balance</th>
+                        <th>Account ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.props.bankAccounts.map((account) =>
+                        <tr key={account._id}>
+                            <td>{account.ownerFirstName}</td>
+                            <td>{account.ownerLastName}</td>
+                            <td>{account.balance}</td>
+                            <td>{account._id}</td>
+                        </tr>)
+                    }
+                </tbody>
+            </table>
+        )
     }
 
     render() {
@@ -30,8 +51,15 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
+    bankAccounts: PropTypes.array,
     bankAccountsActions: PropTypes.object
 };
+
+function mapStateToProps(state) {
+    return {
+        bankAccounts: state.bankAccountsReducer.bankAccounts
+    };
+}
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -40,6 +68,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(Home);

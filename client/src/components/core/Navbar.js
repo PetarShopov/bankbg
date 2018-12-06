@@ -14,14 +14,14 @@ class Navbar extends Component {
         }
     }
 
-    componentWillRecieveProps(props) {
-        this.setState({
-            username: AuthService.getUser().name
-        })
-        if (props.userReducer) {
+    // componentWillReceiveProps(props) {
+    //     this.setState({
+    //         username: AuthService.getUser().name
+    //     })
+    //     if (props.userReducer) {
 
-        }
-    }
+    //     }
+    // }
 
     render() {
         let username = this.state.username || this.props.username;

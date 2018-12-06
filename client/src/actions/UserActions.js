@@ -22,7 +22,8 @@ function userLogin(response, user) {
 
 function userLogout() {
     return {
-        type: types.LOGOUT_USER
+        type: types.LOGOUT_USER,
+        user: ''
     }
 }
 
@@ -71,7 +72,7 @@ export function logout() {
         authService.removeUser()
         dispatch(userLogout());
         toastr.success('Info', 'Successfully logout')
-        history.push('/');
+        history.push('/users/login');
     }
 }
 
