@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import bankAccountsService from '../services/bankAccountsService';
 import { history } from '../store/configureStore';
+import { toastr } from 'react-redux-toastr';
 
 function bankAccountAdded(bankAccount) {
     return { 
@@ -13,6 +14,12 @@ function allBankAccountRecieved(bankAccounts) {
     return { 
         type: types.ALL_BANK_ACCOUNTS, 
         bankAccounts 
+    }
+}
+
+function moneyTransfered() {
+    return { 
+        type: types.MONEY_TRANSFERED
     }
 }
 
@@ -31,6 +38,21 @@ export function addBankAccount(bankAccount) {
             .then(response => {
                 dispatch(bankAccountAdded(response.bankAccount));
                 history.push('/');
+            })
+    };
+}
+
+export function transferMoney(moneyTransfer) {
+    return dispatch => {
+        return bankAccountsService.transferMoney(moneyTransfer)
+            .then(response => {
+                dispatch(moneyTransfered());
+                if (response.success) {
+                    toastr.success('Info', response.message)
+                    history.push('/');
+                } else {
+                    toastr.error('Info', response.message)
+                }
             })
     };
 }

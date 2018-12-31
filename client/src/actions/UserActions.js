@@ -1,8 +1,8 @@
 import * as types from './actionTypes';
 import userService from '../services/userService';
-import authService from '../services/authService'
+import authService from '../services/authService';
 import { history } from '../store/configureStore';
-import { toastr } from 'react-redux-toastr'
+import { toastr } from 'react-redux-toastr';
 
 function userRegistered(response, user) {
     return {

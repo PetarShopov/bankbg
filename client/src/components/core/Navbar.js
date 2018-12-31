@@ -38,6 +38,7 @@ class Navbar extends Component {
                                         <Link to='/bankAccounts/add' className='navbarLink'>Add</Link>
                                         <Link to='/bankAccounts/add' className='navbarLink'>Edit</Link>
                                         <Link to='/bankAccounts/add' className='navbarLink'>Delete</Link>
+                                        <Link to='/bankAccounts/transferMoney' className='navbarLink'>Transfer Money</Link>
                                     </div>
                                 </li>
                                 <li><Link to='/analytics' className='navbarLink'>Analytics</Link></li>

@@ -10,6 +10,10 @@ class BankAccountsService {
     static add(bankAccount) {
         return dataService.post(`${baseUrl}/add`, bankAccount, true)
     }
+
+    static transferMoney(moneyTransfer) {
+        return dataService.post(`${baseUrl}/transferMoney`, moneyTransfer, true)
+    }
 }
 
 export default BankAccountsService

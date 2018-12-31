@@ -6,7 +6,6 @@ const passport = require('passport')
 module.exports = (app) => {
 	app.get('/bankAccounts/all', (req, res) => {
 		const page = parseInt(req.query.page) || 1
-		const selectedType = req.query.selectedType
 		const pageSize = 6
 
 		let startIndex = (page - 1) * pageSize
@@ -16,6 +15,45 @@ module.exports = (app) => {
 			.then(bankAccounts => {
 				bankAccounts = bankAccounts.slice(startIndex, endIndex)
 				res.status(200).json({ bankAccounts })
+			})
+			.catch(err => {
+				let message = errorHandler.handleMongooseError(err)
+				return res.status(200).json({
+					success: false,
+					message: message
+				})
+			})
+	})
+
+	app.post('/bankAccounts/transferMoney', (req, res) => {
+		const ownerPin = req.body.receiverPin;
+		const amount = Number(req.body.amount);
+		BankAccount.findOne({ ownerPin })
+			.then(bankAccount => {
+				if (!bankAccount || !Number(bankAccount.balance)) {
+					return res.status(200).json({
+						success: false,
+						message: 'Wrong PIN or amount!'
+					})
+				}
+
+				BankAccount.update({ ownerPin }, {
+					balance: Number(bankAccount.balance) + amount
+				})
+					.then(updatedBankAccount => {
+						res.status(200).json({
+							success: true,
+							message: `Transfer succeeded. ${amount} was transfered to ${bankAccount.ownerFirstName} ${bankAccount.ownerLastName} - ${ownerPin}`,
+							bankAccount: updatedBankAccount
+						})
+					})
+					.catch(err => {
+						let message = errorHandler.handleMongooseError(err)
+						return res.status(200).json({
+							success: false,
+							message: message
+						})
+					})
 			})
 			.catch(err => {
 				let message = errorHandler.handleMongooseError(err)
