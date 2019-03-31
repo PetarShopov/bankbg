@@ -5,6 +5,7 @@ import Home from '../../home/Home'
 import AccountDetails from '../../accounts/AccountDetails'
 import AddBankAccountPage from '../../accounts/AddBankAccountPage'
 import TransferMoneyPage from '../../accounts/TransferMoneyPage'
+import RequestCreditPage from '../../accounts/RequestCreditPage'
 import RegisterPage from '../../users/RegisterPage'
 import LoginPage from '../../users/LoginPage'
 import LogoutPage from '../../users/LogoutPage'
@@ -17,6 +18,7 @@ const Routes = () => (
         <Route path='/users/login' component={LoginPage} />
         <PrivateRoute path='/bankAccounts/add' component={AddBankAccountPage} />
         <PrivateRoute path='/bankAccounts/transferMoney' component={TransferMoneyPage} />
+        <PrivateRoute path='/credit/request' component={RequestCreditPage} />
         <PrivateRoute path='/users/logout' component={LogoutPage} />
     </Switch>
 )

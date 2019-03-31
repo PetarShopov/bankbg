@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const BankAccount = mongoose.model('BankAccount')
+const Credit = mongoose.model('Credit')
 const errorHandler = require('../utilities/error-handler')
 const passport = require('passport')
 
@@ -66,22 +67,69 @@ module.exports = (app) => {
 
 	app.post('/bankAccounts/add', (req, res) => {
 		let bankAccountReq = req.body;
-
-		BankAccount
-			.create({
-				ownerFirstName: bankAccountReq.ownerFirstName || 'No First Name',
-				ownerLastName: bankAccountReq.ownerLastName || 'No Last Name',
-				ownerPin: bankAccountReq.ownerPin || 'No PIN',
-				balance: bankAccountReq.balance || 0,
-				history: bankAccountReq.history || [],
-				createdOn: +Date.now(),
-				lastChange: +Date.now()
-			})
+		const ownerPin = req.body.ownerPin;
+		BankAccount.findOne({ ownerPin })
 			.then(bankAccount => {
+				if (bankAccount) {
+					return res.status(200).json({
+						success: false,
+						message: 'A bank account with such PIN is already created!'
+					})
+				}
+				BankAccount
+					.create({
+						ownerFirstName: bankAccountReq.ownerFirstName || 'No First Name',
+						ownerLastName: bankAccountReq.ownerLastName || 'No Last Name',
+						ownerPin: bankAccountReq.ownerPin || 'No PIN',
+						balance: bankAccountReq.balance || 0,
+						history: bankAccountReq.history || [],
+						createdOn: +Date.now(),
+						lastChange: +Date.now()
+					})
+					.then(bankAccount => {
+						res.status(200).json({
+							success: true,
+							message: 'Bank Account added successfully.',
+							bankAccount
+						})
+					})
+					.catch(err => {
+						let message = errorHandler.handleMongooseError(err)
+						return res.status(200).json({
+							success: false,
+							message: message
+						})
+					})
+			})
+			.catch(err => {
+				let message = errorHandler.handleMongooseError(err)
+				return res.status(200).json({
+					success: false,
+					message: message
+				})
+			})
+	})
+
+	app.post('/bankAccounts/requestCredit', (req, res) => {
+		debugger;
+		let {pin, amount} = req.body;
+		if (!pin || !amount) {
+			return res.status(200).json({
+				success: false,
+				message: "PIN or Amount is missing"
+			})
+		}
+		Credit
+			.create({
+				pin,
+				amount,
+				createdOn: +Date.now()
+			})
+			.then(credit => {
 				res.status(200).json({
 					success: true,
-					message: 'Bank Account added successfully.',
-					bankAccount
+					message: 'Credit requested successfully.',
+					credit
 				})
 			})
 			.catch(err => {

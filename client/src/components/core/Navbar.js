@@ -10,7 +10,8 @@ class Navbar extends Component {
         super(props)
 
         this.state = {
-            username: AuthService.getUser().name
+            username: AuthService.getUser().name,
+            role: AuthService.getUser().role,
         }
     }
 
@@ -25,6 +26,7 @@ class Navbar extends Component {
 
     render() {
         let username = this.state.username || this.props.username;
+        let isAdmin = this.state.role === 'Admin';
         return (
             <div className='menu'>
                 <ul>
@@ -39,8 +41,15 @@ class Navbar extends Component {
                                         <Link to='/bankAccounts/add' className='navbarLink'>Edit</Link>
                                         <Link to='/bankAccounts/add' className='navbarLink'>Delete</Link>
                                         <Link to='/bankAccounts/transferMoney' className='navbarLink'>Transfer Money</Link>
+                                        <Link to='/credit/request' className='navbarLink'>Request Credit</Link>
                                     </div>
                                 </li>
+                                {isAdmin ? <li className="dropdown">
+                                    <Link to='#' className='navbarLink'>Admin</Link>
+                                    <div className="dropdown-content">
+                                        <Link to='/credit/approve' className='navbarLink'>Approve credits</Link>
+                                    </div>
+                                </li> : null}
                                 <li><Link to='/analytics' className='navbarLink'>Analytics</Link></li>
                                 <li className="dropdown" id="userDetailsButton">
                                     <Link to='#' className='navbarLink' >{username}</Link>

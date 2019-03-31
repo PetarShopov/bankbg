@@ -23,6 +23,12 @@ function moneyTransfered() {
     }
 }
 
+function creditRequested() {
+    return { 
+        type: types.CREDIT_REQUESTED
+    }
+}
+
 export function getAllBankAccounts() {
     return dispatch => {
         return bankAccountsService.all(1)
@@ -36,8 +42,13 @@ export function addBankAccount(bankAccount) {
     return dispatch => {
         return bankAccountsService.add(bankAccount)
             .then(response => {
-                dispatch(bankAccountAdded(response.bankAccount));
-                history.push('/');
+                if (response.success) {
+                    toastr.success('Info', response.message)
+                    dispatch(bankAccountAdded(response.bankAccount));
+                    history.push('/');
+                } else {
+                    toastr.error('Error', response.message)
+                }
             })
     };
 }
@@ -51,7 +62,22 @@ export function transferMoney(moneyTransfer) {
                     toastr.success('Info', response.message)
                     history.push('/');
                 } else {
-                    toastr.error('Info', response.message)
+                    toastr.error('Error', response.message)
+                }
+            })
+    };
+}
+
+export function requestCredit(credit) {
+    return dispatch => {
+        return bankAccountsService.requestCredit(credit)
+            .then(response => {
+                dispatch(creditRequested());
+                if (response.success) {
+                    toastr.success('Info', response.message)
+                    history.push('/');
+                } else {
+                    toastr.error('Error', response.message)
                 }
             })
     };
