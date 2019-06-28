@@ -6,18 +6,10 @@ import { Link } from 'react-router-dom'
 import './Navbar.css';
 
 class Navbar extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            username: AuthService.getUser().name,
-            role: AuthService.getUser().role,
-        }
-    }
 
     render() {
-        let username = this.state.username || this.props.username;
-        let isAdmin = this.state.role === 'Admin';
+        let username = this.props.username;
+        let isAdmin = this.props.role === 'Admin';
         return (
             <div className='menu'>
                 <ul>
@@ -68,7 +60,8 @@ Navbar.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        username: state.userReducer.username
+        username: state.userReducer.username,
+        role: state.userReducer.role
     };
 }
 

@@ -1,7 +1,8 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
-    username: null
+    username: null,
+    role: null
 };
 
 export default (state = initialState, action) => {
@@ -12,13 +13,15 @@ export default (state = initialState, action) => {
     function login(state, action) {
         let result = action.response;
         return Object.assign({}, state, {
-            username: result.user.name
+            username: result.user.name,
+            role: result.user.role,
         })
     }
 
     function logout(state, action) {
         return Object.assign({}, state, {
-            username: null
+            username: null,
+            role: null
         })
     }
 
