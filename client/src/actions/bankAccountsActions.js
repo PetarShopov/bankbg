@@ -29,9 +29,9 @@ function creditRequested() {
     }
 }
 
-export function getAllBankAccounts() {
+export function getAllBankAccounts(username, isAdmin) {
     return dispatch => {
-        return bankAccountsService.all(1)
+        return bankAccountsService.all(1, username, isAdmin)
             .then(response => {
                 dispatch(allBankAccountRecieved(response.bankAccounts));
             })

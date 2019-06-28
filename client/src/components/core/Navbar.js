@@ -20,9 +20,12 @@ class Navbar extends Component {
                                 <li className="dropdown">
                                     <Link to='#' className='navbarLink'>Bank Accounts</Link>
                                     <div className="dropdown-content">
-                                        <Link to='/bankAccounts/add' className='navbarLink'>Add</Link>
-                                        <Link to='/bankAccounts/add' className='navbarLink'>Edit</Link>
-                                        <Link to='/bankAccounts/add' className='navbarLink'>Delete</Link>
+                                        {isAdmin ?
+                                            <>
+                                                <Link to='/bankAccounts/add' className='navbarLink'>Add</Link>
+                                                <Link to='/bankAccounts/add' className='navbarLink'>Edit</Link>
+                                                <Link to='/bankAccounts/add' className='navbarLink'>Delete</Link>
+                                            </> : null}
                                         <Link to='/bankAccounts/transferMoney' className='navbarLink'>Transfer Money</Link>
                                         <Link to='/credit/request' className='navbarLink'>Request Credit</Link>
                                     </div>
@@ -30,16 +33,17 @@ class Navbar extends Component {
                                 {isAdmin ? <li className="dropdown">
                                     <Link to='#' className='navbarLink'>Admin</Link>
                                     <div className="dropdown-content">
+                                        <Link to='/bankInfo' className='navbarLink'>Bank Info</Link>
                                         <Link to='/credit/approve' className='navbarLink'>Approve credits</Link>
                                     </div>
                                 </li> : null}
                                 <li><Link to='/analytics' className='navbarLink'>Analytics</Link></li>
-                                <li className="dropdown" id="userDetailsButton">
+                                {username ? <li className="dropdown" id="userDetailsButton">
                                     <Link to='#' className='navbarLink' >{username}</Link>
                                     <div className="dropdown-content">
                                         <Link to='/users/logout' className='navbarLink'>Logout</Link>
                                     </div>
-                                </li>
+                                </li> : null}
                             </span>
                         ) : (
                                 <span>

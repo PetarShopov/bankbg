@@ -19,6 +19,13 @@ const AddBankAccountForm = (props) => (
             onChange={props.onChange}/>
         <br />
         <Input
+            name='ownerUsername'
+            type='text'
+            placeholder='Username'
+            value={props.bankAccount.ownerUsername}
+            onChange={props.onChange}/>
+        <br />
+        <Input
             name='ownerPin'
             type='text'
             placeholder='PIN'

@@ -7,6 +7,7 @@ const passport = require('passport')
 module.exports = (app) => {
 	app.get('/bankAccounts/all', (req, res) => {
 		const page = parseInt(req.query.page) || 1
+		const username = req.query.username
 		const pageSize = 6
 
 		let startIndex = (page - 1) * pageSize
@@ -14,6 +15,11 @@ module.exports = (app) => {
 
 		BankAccount.find({})
 			.then(bankAccounts => {
+				if (username) {
+					bankAccounts = bankAccounts.filter((bankAccount) => {
+						return bankAccount.ownerUsername === username
+					})
+				}
 				bankAccounts = bankAccounts.slice(startIndex, endIndex)
 				res.status(200).json({ bankAccounts })
 			})
@@ -80,6 +86,7 @@ module.exports = (app) => {
 					.create({
 						ownerFirstName: bankAccountReq.ownerFirstName || 'No First Name',
 						ownerLastName: bankAccountReq.ownerLastName || 'No Last Name',
+						ownerUsername: bankAccountReq.ownerUsername || 'No Username',
 						ownerPin: bankAccountReq.ownerPin || 'No PIN',
 						balance: bankAccountReq.balance || 0,
 						history: bankAccountReq.history || [],

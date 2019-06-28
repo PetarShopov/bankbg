@@ -14,6 +14,7 @@ class AddBankAccountPage extends Component {
             bankAccount: {
                 ownerFirstName: 'Petar',
                 ownerLastName: 'Shopov',
+                ownerUsername: 'petar@bank.bg',
                 ownerPin: '1234',
                 balance: 100
             },

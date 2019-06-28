@@ -12,7 +12,7 @@ class LoginPage extends Component {
 
         this.state = {
             user: {
-                username: 'test@test.com',
+                username: 'Admin', //'petar@bank.bg'
                 password: '123456'
             },
             error: ''

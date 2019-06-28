@@ -2,9 +2,12 @@ import dataService from './dataService'
 const baseUrl = 'bankAccounts'
 
 class BankAccountsService {
-    static all(page) {
+    static all(page, username, isAdmin) {
         page = page || 1
-        return dataService.get(`${baseUrl}/all?page=${page}`)
+        if (isAdmin) {
+            return dataService.get(`${baseUrl}/all?page=${page}`)
+        }
+        return dataService.get(`${baseUrl}/all?page=${page}&username=${username}`)
     }
 
     static add(bankAccount) {

@@ -3,13 +3,11 @@ import { bindActionCreators } from 'redux';
 import * as bankAccountsActions from '../../actions/bankAccountsActions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import './Home.css';
+import './BankInfo.css';
 
-class Home extends React.Component {
+class BankInfo extends React.Component {
     componentDidMount() {
-        if (!this.props.isAdmin) {
-            this.props.bankAccountsActions.getAllBankAccounts(this.props.username)
-        }
+        this.props.bankAccountsActions.getAllBankAccounts(null, true)
     }
 
     renderData() {
@@ -42,14 +40,6 @@ class Home extends React.Component {
     }
 
     render() {
-        if (!this.props.isLogged || this.props.isAdmin) {
-            return (
-                <h2>
-                    Welcome To First Bulgarian Bank
-                </h2>
-            )
-        }
-
         return (
             <div className="">
                 {this.props.bankAccounts && this.props.bankAccounts.length > 0 ?
@@ -64,17 +54,14 @@ class Home extends React.Component {
     }
 }
 
-Home.propTypes = {
+BankInfo.propTypes = {
     bankAccounts: PropTypes.array,
     bankAccountsActions: PropTypes.object
 };
 
 function mapStateToProps(state) {
     return {
-        bankAccounts: state.bankAccountsReducer.bankAccounts,
-        username: state.userReducer.username,
-        isLogged: state.userReducer.username ? true : false,
-        isAdmin: state.userReducer.role === 'Admin' ? true : false,
+        bankAccounts: state.bankAccountsReducer.bankAccounts
     };
 }
 
@@ -87,4 +74,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Home);
+)(BankInfo);
