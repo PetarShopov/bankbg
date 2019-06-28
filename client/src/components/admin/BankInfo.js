@@ -35,6 +35,16 @@ class BankInfo extends React.Component {
                         </tr>)
                     }
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total Accounts</th>
+                        <th>{this.props.bankInfo.bankAccounts}</th>
+                        <th></th>
+                        <th>Total Balance</th>
+                        <th>{this.props.bankInfo.totalBalance}</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
             </table>
         )
     }
@@ -56,12 +66,14 @@ class BankInfo extends React.Component {
 
 BankInfo.propTypes = {
     bankAccounts: PropTypes.array,
+    bankInfo: PropTypes.object,
     bankAccountsActions: PropTypes.object
 };
 
 function mapStateToProps(state) {
     return {
-        bankAccounts: state.bankAccountsReducer.bankAccounts
+        bankAccounts: state.bankAccountsReducer.bankAccounts,
+        bankInfo: state.bankAccountsReducer.bankInfo,
     };
 }
 

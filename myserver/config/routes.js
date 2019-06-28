@@ -12,7 +12,10 @@ module.exports = (app) => {
 
 		let startIndex = (page - 1) * pageSize
 		let endIndex = startIndex + pageSize
-
+		let bankInfo = {
+			totalBalance: 0,
+			bankAccounts: 0
+		}
 		BankAccount.find({})
 			.then(bankAccounts => {
 				if (username) {
@@ -20,8 +23,12 @@ module.exports = (app) => {
 						return bankAccount.ownerUsername === username
 					})
 				}
+				bankAccounts.forEach((bankAccount) => {
+					bankInfo.totalBalance += bankAccount.balance;
+				})
+				bankInfo.bankAccounts = bankAccounts.length;
 				bankAccounts = bankAccounts.slice(startIndex, endIndex)
-				res.status(200).json({ bankAccounts })
+				res.status(200).json({ bankAccounts, bankInfo })
 			})
 			.catch(err => {
 				let message = errorHandler.handleMongooseError(err)

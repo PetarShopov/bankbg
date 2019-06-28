@@ -17,7 +17,8 @@ export default (state = initialState, action) => {
     function getAllBankAccounts(state, action) {
         return {
             ...state,
-            bankAccounts: action.bankAccounts
+            bankAccounts: action.bankAccounts,
+            bankInfo: action.bankInfo
         }
     }
 

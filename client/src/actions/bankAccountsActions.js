@@ -4,27 +4,28 @@ import { history } from '../configureStore';
 import { toastr } from 'react-redux-toastr';
 
 function bankAccountAdded(bankAccount) {
-    return { 
-        type: types.ADD_BANK_ACCOUNT, 
-        bankAccount 
+    return {
+        type: types.ADD_BANK_ACCOUNT,
+        bankAccount
     }
 }
 
-function allBankAccountRecieved(bankAccounts) {
-    return { 
-        type: types.ALL_BANK_ACCOUNTS, 
-        bankAccounts 
+function allBankAccountRecieved(bankAccounts, bankInfo) {
+    return {
+        type: types.ALL_BANK_ACCOUNTS,
+        bankAccounts,
+        bankInfo
     }
 }
 
 function moneyTransfered() {
-    return { 
+    return {
         type: types.MONEY_TRANSFERED
     }
 }
 
 function creditRequested() {
-    return { 
+    return {
         type: types.CREDIT_REQUESTED
     }
 }
@@ -33,7 +34,7 @@ export function getAllBankAccounts(username, isAdmin) {
     return dispatch => {
         return bankAccountsService.all(1, username, isAdmin)
             .then(response => {
-                dispatch(allBankAccountRecieved(response.bankAccounts));
+                dispatch(allBankAccountRecieved(response.bankAccounts, response.bankInfo));
             })
     };
 }
