@@ -1,15 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { configure, history } from './store/configureStore';
-import './index.css';
-import App from './App';
+import configureStore, { history } from './configureStore'
 import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import registerServiceWorker from './registerServiceWorker';
-import '../node_modules/react-redux-toastr/lib/css/react-redux-toastr.min.css'
-import ReduxToastr from 'react-redux-toastr'
 
-const store = configure();
+import ReduxToastr from 'react-redux-toastr'
+import App from './App';
+
+import './index.css';
+import '../node_modules/react-redux-toastr/lib/css/react-redux-toastr.min.css'
+
+const store = configureStore();
 
 render(
     <Provider store={store}>

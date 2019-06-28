@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import bankAccountsService from '../services/bankAccountsService';
-import { history } from '../store/configureStore';
+import { history } from '../configureStore';
 import { toastr } from 'react-redux-toastr';
 
 function bankAccountAdded(bankAccount) {
