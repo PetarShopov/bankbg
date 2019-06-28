@@ -19,12 +19,6 @@ class LoginPage extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
-        if (nextProps.userLoggedIn) {
-            this.props.history.push('/');
-        }
-    }
-
     handleUserChange(event) {
         FormHelpers.handleFormChange.bind(this)(event, 'user')
     }
@@ -53,12 +47,6 @@ LoginPage.propTypes = {
     userLoggedIn: PropTypes.bool
 };
 
-function mapStateToProps(state) {
-    return {
-        userLoggedIn: state.userReducer.userLoggedIn
-    };
-}
-
 function mapDispatchToProps(dispatch) {
     return {
         userActions: bindActionCreators(userActions, dispatch)
@@ -66,6 +54,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(LoginPage);

@@ -1,6 +1,10 @@
 import * as types from '../actions/actionTypes';
 
-export default (state = { username: null }, action) => {
+const initialState = {
+    username: null
+};
+
+export default (state = initialState, action) => {
     function register(state, action) {
         return state
     }
@@ -8,7 +12,6 @@ export default (state = { username: null }, action) => {
     function login(state, action) {
         let result = action.response;
         return Object.assign({}, state, {
-            message: result.success,
             username: result.user.name
         })
     }

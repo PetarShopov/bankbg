@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import configureStore, { history } from './configureStore'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router';
+
 import registerServiceWorker from './registerServiceWorker';
 
 import ReduxToastr from 'react-redux-toastr'

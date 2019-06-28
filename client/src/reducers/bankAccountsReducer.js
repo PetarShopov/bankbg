@@ -1,6 +1,10 @@
 import { ADD_BANK_ACCOUNT, ALL_BANK_ACCOUNTS, MONEY_TRANSFERED, CREDIT_REQUESTED } from '../actions/actionTypes';
 
-export default (state = { bankAccounts: [] }, action) => {
+const initialState = {
+    bankAccounts: []
+};
+
+export default (state = initialState, action) => {
     function addBankAccount(state, action) {
         return {
             ...state,

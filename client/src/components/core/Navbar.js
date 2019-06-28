@@ -15,15 +15,6 @@ class Navbar extends Component {
         }
     }
 
-    // componentWillReceiveProps(props) {
-    //     this.setState({
-    //         username: AuthService.getUser().name
-    //     })
-    //     if (props.userReducer) {
-
-    //     }
-    // }
-
     render() {
         let username = this.state.username || this.props.username;
         let isAdmin = this.state.role === 'Admin';
