@@ -125,18 +125,18 @@ module.exports = (app) => {
 	})
 
 	app.post('/bankAccounts/requestCredit', (req, res) => {
-		debugger;
-		let {pin, amount} = req.body;
-		if (!pin || !amount) {
+		let {pin, amount, ownerUsername} = req.body;
+		if (!pin || !amount || !ownerUsername) {
 			return res.status(200).json({
 				success: false,
-				message: "PIN or Amount is missing"
+				message: "PIN, Amount or Owner username is missing"
 			})
 		}
 		Credit
 			.create({
 				pin,
 				amount,
+				ownerUsername,
 				createdOn: +Date.now()
 			})
 			.then(credit => {

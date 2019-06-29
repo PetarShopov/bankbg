@@ -1,7 +1,8 @@
 import { ADD_BANK_ACCOUNT, ALL_BANK_ACCOUNTS, MONEY_TRANSFERED, CREDIT_REQUESTED } from '../actions/actionTypes';
 
 const initialState = {
-    bankAccounts: []
+    bankAccounts: [],
+    credits: []
 };
 
 export default (state = initialState, action) => {
@@ -27,7 +28,10 @@ export default (state = initialState, action) => {
     }
 
     function requestCredit(state, action) {
-        return state
+        return {
+            ...state,
+            credits: action.credits
+        }
     }
 
     switch (action.type) {

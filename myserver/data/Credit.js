@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 let creditSchema = new mongoose.Schema({
     pin: { type: String, required: true },
     amount: { type: Number, required: true },
+    ownerUsername: { type: String, required: true },
     createdOn: { type: Date},
     approvedOn: { type: Date},
     approved: { type: Boolean, default: false }

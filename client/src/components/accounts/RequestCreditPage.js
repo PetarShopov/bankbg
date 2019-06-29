@@ -14,6 +14,7 @@ class RequestCreditPage extends Component {
             credit: {
                 pin: 1234,
                 amount: 700,
+                ownerUsername: props.username
             },
             error: '',
         }
@@ -65,7 +66,8 @@ RequestCreditPage.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        credits: state.credits
+        credits: state.bankAccountsReducer.credits,
+        username: state.userReducer.username,
     };
 }
 
