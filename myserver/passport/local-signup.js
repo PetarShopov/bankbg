@@ -23,7 +23,6 @@ module.exports = new PassportLocalStrategy({
                 username: username,
                 firstName: reqUser.firstName,
                 lastName: reqUser.lastName,
-                pin: reqUser.pin,
                 salt: salt,
                 hashedPass: hashedPassword
             })

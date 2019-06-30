@@ -17,7 +17,6 @@ class RegisterPage extends Component {
                 confirmPassword: '123456',
                 firstName: 'Petar',
                 lastName: 'Shopov',
-                pin: '1234'
             },
             submitted: false,
             error: ''

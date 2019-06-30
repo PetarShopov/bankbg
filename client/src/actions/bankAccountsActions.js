@@ -18,6 +18,14 @@ function allBankAccountRecieved(bankAccounts, bankInfo) {
     }
 }
 
+function allCreditsRecieved(credits, creditsInfo) {
+    return {
+        type: types.ALL_CREDITS,
+        credits,
+        creditsInfo
+    }
+}
+
 function moneyTransfered() {
     return {
         type: types.MONEY_TRANSFERED
@@ -35,6 +43,15 @@ export function getAllBankAccounts(username, isAdmin) {
         return bankAccountsService.all(1, username, isAdmin)
             .then(response => {
                 dispatch(allBankAccountRecieved(response.bankAccounts, response.bankInfo));
+            })
+    };
+}
+
+export function getAllCredits(username, isAdmin) {
+    return dispatch => {
+        return bankAccountsService.allCredits(1, username, isAdmin)
+            .then(response => {
+                dispatch(allCreditsRecieved(response.credits, response.creditsInfo));
             })
     };
 }

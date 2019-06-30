@@ -39,6 +39,40 @@ module.exports = (app) => {
 			})
 	})
 
+	app.get('/bankAccounts/allCredits', (req, res) => {
+		const page = parseInt(req.query.page) || 1
+		const username = req.query.username
+		const pageSize = 6
+
+		let startIndex = (page - 1) * pageSize
+		let endIndex = startIndex + pageSize
+		let creditsInfo = {
+			totalBalance: 0,
+			credits: 0
+		}
+		Credit.find({})
+			.then(credits => {
+				if (username) {
+					credits = credits.filter((credit) => {
+						return credit.ownerUsername === username
+					})
+				}
+				credits.forEach((credit) => {
+					creditsInfo.totalBalance += credit.amount;
+				})
+				creditsInfo.credits = credits.length;
+				credits = credits.slice(startIndex, endIndex)
+				res.status(200).json({ credits, creditsInfo })
+			})
+			.catch(err => {
+				let message = errorHandler.handleMongooseError(err)
+				return res.status(200).json({
+					success: false,
+					message: message
+				})
+			})
+	})
+
 	app.post('/bankAccounts/transferMoney', (req, res) => {
 		const ownerPin = req.body.receiverPin;
 		const amount = Number(req.body.amount);

@@ -1,4 +1,4 @@
-import { ADD_BANK_ACCOUNT, ALL_BANK_ACCOUNTS, MONEY_TRANSFERED, CREDIT_REQUESTED } from '../actions/actionTypes';
+import { ADD_BANK_ACCOUNT, ALL_BANK_ACCOUNTS, ALL_CREDITS, MONEY_TRANSFERED, CREDIT_REQUESTED } from '../actions/actionTypes';
 
 const initialState = {
     bankAccounts: [],
@@ -23,6 +23,14 @@ export default (state = initialState, action) => {
         }
     }
 
+    function getAllCredits(state, action) {
+        return {
+            ...state,
+            credits: action.credits,
+            creditsInfo: action.creditsInfo
+        }
+    }
+
     function transferMoney(state, action) {
         return state
     }
@@ -39,6 +47,8 @@ export default (state = initialState, action) => {
             return addBankAccount(state, action);
         case ALL_BANK_ACCOUNTS:
             return getAllBankAccounts(state, action);
+        case ALL_CREDITS:
+            return getAllCredits(state, action);
         case MONEY_TRANSFERED:
             return transferMoney(state, action);
         case CREDIT_REQUESTED:

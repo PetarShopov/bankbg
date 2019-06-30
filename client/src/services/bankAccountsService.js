@@ -10,6 +10,14 @@ class BankAccountsService {
         return dataService.get(`${baseUrl}/all?page=${page}&username=${username}`)
     }
 
+    static allCredits(page, username, isAdmin) {
+        page = page || 1
+        if (isAdmin) {
+            return dataService.get(`${baseUrl}/allCredits?page=${page}`)
+        }
+        return dataService.get(`${baseUrl}/allCredits?page=${page}&username=${username}`)
+    }
+
     static add(bankAccount) {
         return dataService.post(`${baseUrl}/add`, bankAccount, true)
     }

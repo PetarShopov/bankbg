@@ -26,13 +26,6 @@ const RegisterForm = (props) => (
             onChange={props.onChange} />
         <br />
         <Input
-            type='text'
-            name='pin'
-            placeholder='PIN'
-            value={props.user.pin}
-            onChange={props.onChange} />
-        <br />
-        <Input
             type='password'
             name='password'
             placeholder='Password'
