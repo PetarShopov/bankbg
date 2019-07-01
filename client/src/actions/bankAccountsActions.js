@@ -38,6 +38,13 @@ function creditRequested() {
     }
 }
 
+function creditApproved(creditId) {
+    return {
+        type: types.CREDIT_APPROVED,
+        creditId
+    }
+}
+
 export function getAllBankAccounts(username, isAdmin) {
     return dispatch => {
         return bankAccountsService.all(1, username, isAdmin)
@@ -94,6 +101,20 @@ export function requestCredit(credit) {
                 if (response.success) {
                     toastr.success('Info', response.message)
                     history.push('/');
+                } else {
+                    toastr.error('Error', response.message)
+                }
+            })
+    };
+}
+
+export function approveCredit(id) {
+    return dispatch => {
+        return bankAccountsService.approveCredit(id)
+            .then(response => {
+                if (response.success) {
+                    toastr.success('Info', response.message)
+                    dispatch(creditApproved(response.creditId));
                 } else {
                     toastr.error('Error', response.message)
                 }

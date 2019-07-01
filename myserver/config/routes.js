@@ -159,7 +159,7 @@ module.exports = (app) => {
 	})
 
 	app.post('/bankAccounts/requestCredit', (req, res) => {
-		let {pin, amount, ownerUsername} = req.body;
+		let { pin, amount, ownerUsername } = req.body;
 		if (!pin || !amount || !ownerUsername) {
 			return res.status(200).json({
 				success: false,
@@ -187,6 +187,46 @@ module.exports = (app) => {
 					message: message
 				})
 			})
+	})
+
+	app.post('/bankAccounts/approveCredit', (req, res) => {
+		return passport.authenticate('protected-request', (err, user) => {
+			if (err) {
+				return res.status(200).json({
+					success: false,
+					message: err.message
+				})
+			}
+
+			if (!user) {
+				return res.status(200).json({
+					success: false,
+					message: 'You do not have access to do this!'
+				})
+			}
+			let creditReq = req.body;
+
+			Credit.update(
+				{ _id: creditReq._id },
+				{
+					approved: true,
+					approvedOn: +Date.now(),
+				}
+			).then(credit => {
+				res.status(200).json({
+					success: true,
+					message: 'Credit approved successfully.',
+					creditId: creditReq._id
+				})
+			})
+				.catch(err => {
+					let message = errorHandler.handleMongooseError(err)
+					return res.status(200).json({
+						success: false,
+						message: message
+					})
+				})
+		})(req, res)
 	})
 
 	app.post('/users/register', (req, res) => {

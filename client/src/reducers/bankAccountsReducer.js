@@ -1,4 +1,4 @@
-import { ADD_BANK_ACCOUNT, ALL_BANK_ACCOUNTS, ALL_CREDITS, MONEY_TRANSFERED, CREDIT_REQUESTED } from '../actions/actionTypes';
+import { ADD_BANK_ACCOUNT, ALL_BANK_ACCOUNTS, ALL_CREDITS, MONEY_TRANSFERED, CREDIT_REQUESTED, CREDIT_APPROVED } from '../actions/actionTypes';
 
 const initialState = {
     bankAccounts: [],
@@ -42,6 +42,19 @@ export default (state = initialState, action) => {
         }
     }
 
+    function approveCredit(state, action) {
+        let credits = state.credits.map((credit) => {
+            if (credit._id === action.creditId) {
+                credit.approved = true;
+            }
+            return credit
+        })
+        return {
+            ...state,
+            credits: credits
+        }
+    }
+
     switch (action.type) {
         case ADD_BANK_ACCOUNT:
             return addBankAccount(state, action);
@@ -53,6 +66,8 @@ export default (state = initialState, action) => {
             return transferMoney(state, action);
         case CREDIT_REQUESTED:
             return requestCredit(state, action);
+        case CREDIT_APPROVED:
+            return approveCredit(state, action);
         default:
             return state;
     }

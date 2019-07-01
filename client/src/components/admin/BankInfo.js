@@ -7,8 +7,12 @@ import './BankInfo.css';
 
 class BankInfo extends React.Component {
     componentDidMount() {
-        this.props.bankAccountsActions.getAllBankAccounts(null, true)
-        this.props.bankAccountsActions.getAllCredits(null, true)
+        this.props.bankAccountsActions.getAllBankAccounts(null, true);
+        this.props.bankAccountsActions.getAllCredits(null, true);
+    }
+
+    approveCredit(id){
+        this.props.bankAccountsActions.approveCredit(id);
     }
 
     renderData() {
@@ -59,6 +63,7 @@ class BankInfo extends React.Component {
                             <th>Amount</th>
                             <th>Approved</th>
                             <th>Created on</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,6 +74,7 @@ class BankInfo extends React.Component {
                                 <td>{credit.amount}</td>
                                 <td>{credit.approved ? 'Yes' : 'No'}</td>
                                 <td>{credit.createdOn}</td>
+                                <td>{credit.approved ? null : <button onClick={() => this.approveCredit(credit._id)}>Approve</button>}</td>
                             </tr>)
                         }
                     </tbody>

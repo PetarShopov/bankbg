@@ -18,6 +18,10 @@ class BankAccountsService {
         return dataService.get(`${baseUrl}/allCredits?page=${page}&username=${username}`)
     }
 
+    static approveCredit(id) {
+        return dataService.post(`${baseUrl}/approveCredit`, { _id: id }, true)
+    }
+
     static add(bankAccount) {
         return dataService.post(`${baseUrl}/add`, bankAccount, true)
     }
